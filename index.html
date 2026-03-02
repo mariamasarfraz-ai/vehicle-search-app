@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vehicle Finder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to results</a>
+
+  <header class="site-header">
+    <div class="container">
+      <h1>Vehicle Finder</h1>
+      <p class="muted">Search and filter a local dataset of vehicles (client-side only).</p>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section aria-labelledby="filters-title" class="panel">
+      <h2 id="filters-title">Search and filters</h2>
+
+      <form id="filtersForm" class="filters" autocomplete="off">
+        <div class="field">
+          <label for="q">Search</label>
+          <input id="q" name="q" type="search" placeholder="Try: Toyota, Civic, 2020, diesel..." />
+          <p class="help" id="qHelp">Searches make, model, colour, fuel type, and year.</p>
+        </div>
+
+        <div class="field">
+          <label for="make">Make</label>
+          <select id="make" name="make">
+            <option value="">Any</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="fuel">Fuel type</label>
+          <select id="fuel" name="fuel">
+            <option value="">Any</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Electric">Electric</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="colour">Colour</label>
+          <select id="colour" name="colour">
+            <option value="">Any</option>
+          </select>
+        </div>
+
+        <fieldset class="range" aria-labelledby="yearLegend">
+          <legend id="yearLegend">Year range</legend>
+          <div class="field">
+            <label for="yearMin">From</label>
+            <input id="yearMin" name="yearMin" type="number" inputmode="numeric" min="1990" max="2035" />
+          </div>
+          <div class="field">
+            <label for="yearMax">To</label>
+            <input id="yearMax" name="yearMax" type="number" inputmode="numeric" min="1990" max="2035" />
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="sort">Sort</label>
+          <select id="sort" name="sort">
+            <option value="relevance">Relevance</option>
+            <option value="yearDesc">Year (newest first)</option>
+            <option value="yearAsc">Year (oldest first)</option>
+            <option value="makeAsc">Make (A–Z)</option>
+            <option value="modelAsc">Model (A–Z)</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="resetBtn" class="secondary">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section aria-labelledby="results-title" class="panel">
+      <div class="results-head">
+        <h2 id="results-title">Results</h2>
+        <div class="chips" id="activeChips" aria-label="Active filters"></div>
+      </div>
+
+      <p id="status" class="muted" role="status" aria-live="polite"></p>
+      <ul id="results" class="results" aria-label="Vehicle results"></ul>
+
+      <div id="emptyState" class="empty" hidden>
+        <p><strong>No matches found.</strong></p>
+        <p>Try removing a filter or using a broader search term.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="dialogBackdrop" class="backdrop" hidden></div>
+  <dialog id="vehicleDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-head">
+      <h3 id="dialogTitle">Vehicle details</h3>
+      <button id="closeDialogBtn" class="icon" aria-label="Close details">✕</button>
+    </div>
+    <div id="dialogBody"></div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small class="muted">Built with HTML, CSS, and vanilla JavaScript.</small>
+    </div>
+  </footer>
+
+  <!-- THIS LINE IS THE IMPORTANT BIT -->
+  <script src="app.js" defer></script>
+</body>
+</html>
